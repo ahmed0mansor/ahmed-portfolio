@@ -57,6 +57,10 @@ export async function PUT(request: NextRequest) {
     update.cvDownloadEnabled = body.cvDownloadEnabled;
   }
 
+  if ("whatsappButtonEnabled" in body && typeof body.whatsappButtonEnabled === "boolean") {
+    update.whatsappButtonEnabled = body.whatsappButtonEnabled;
+  }
+
   if ("themeVariant" in body && typeof body.themeVariant === "string" && themeVariants.includes(body.themeVariant as never)) {
     update.themeVariant = body.themeVariant as never;
   }

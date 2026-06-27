@@ -17,6 +17,7 @@ export type ProfileContent = {
   titleAr: string;
   titleEn: string;
   phone: string;
+  whatsappNumber: string;
   email: string;
   location: string;
   cvUrl: string;
@@ -79,6 +80,9 @@ export type ContactContent = SectionHeaderContent & {
   emailLabel: string;
   phoneLabel: string;
   locationLabel: string;
+  whatsappLabel: string;
+  whatsappCta: string;
+  whatsappMessage: string;
 };
 
 export type SiteContent = {
@@ -115,6 +119,7 @@ export const defaultSiteContent: SiteContent = {
     titleAr: "مهندس برمجيات | مطور Backend وFull-Stack | مهتم بالذكاء الاصطناعي والأتمتة",
     titleEn: "Software Engineer | Backend & Full-Stack Developer | AI & Automation Enthusiast",
     phone: "735013640",
+    whatsappNumber: "967735013640",
     email: "ahmed0qaid@gmail.com",
     location: "تعز - الحوبان",
     cvUrl: "/api/cv",
@@ -155,7 +160,7 @@ export const defaultSiteContent: SiteContent = {
     kicker: "الخدمات",
     title: "الخدمات التي يقدمها الموقع",
     subtitle:
-      "الخدمات مبنية على المهارات الموجودة في السيرة الذاتية، مع إبراز المجالات الأقوى: Backend، قواعد البيانات، Flutter، والذكاء الاصطناعي التطبيقي.",
+      "خدمات تقنية متكاملة لتحويل الأفكار إلى مواقع، تطبيقات، وأنظمة ذكية عملية.",
   },
   services: [
     {
@@ -260,6 +265,9 @@ export const defaultSiteContent: SiteContent = {
     emailLabel: "البريد الإلكتروني",
     phoneLabel: "الهاتف",
     locationLabel: "الموقع",
+    whatsappLabel: "واتساب",
+    whatsappCta: "راسلني على واتساب",
+    whatsappMessage: "مرحبًا أحمد، أريد الاستفسار عن بناء موقع أو تطبيق.",
   },
   footer: {
     text: "© 2026 أحمد شوقي منصور. موقع شخصي ذكي ونظام استقبال طلبات العملاء.",
@@ -360,6 +368,8 @@ const legacyArabicText: Record<string, string> = {
   "Child Care Mobile App": "تطبيق موبايل لرعاية الأطفال",
   "n8n Content Automation": "أتمتة المحتوى باستخدام n8n",
   "© 2026 Ahmed Qaid. Built as a smart portfolio and AI client intake system.": "© 2026 أحمد شوقي منصور. موقع شخصي ذكي ونظام استقبال طلبات العملاء.",
+  "الخدمات مبنية على المهارات الموجودة في السيرة الذاتية، مع إبراز المجالات الأقوى: Backend، قواعد البيانات، Flutter، والذكاء الاصطناعي التطبيقي.": "خدمات تقنية متكاملة لتحويل الأفكار إلى مواقع، تطبيقات، وأنظمة ذكية عملية.",
+  "The services are aligned with the strongest areas in the CV: backend development, databases, Flutter, applied AI, and automation.": "Integrated digital services to transform ideas into practical websites, applications, and smart systems.",
   "© 2026 AHMED SHAWQI MANSOUR. Built as a smart portfolio and AI client intake system.": "© 2026 أحمد شوقي منصور. موقع شخصي ذكي ونظام استقبال طلبات العملاء."
 };
 
@@ -384,6 +394,7 @@ export function normalizeSiteContent(value: unknown, fallback: SiteContent = def
       titleAr: cleanString(source.profile.titleAr, 200),
       titleEn: cleanString(source.profile.titleEn, 200),
       phone: cleanString(source.profile.phone, 40),
+      whatsappNumber: cleanString(source.profile.whatsappNumber || source.profile.phone, 40),
       email: cleanString(source.profile.email, 150),
       location: cleanString(source.profile.location, 120),
       cvUrl: source.profile.cvUrl === "/api/cv" ? "/api/cv" : "/api/cv",
@@ -457,6 +468,9 @@ export function normalizeSiteContent(value: unknown, fallback: SiteContent = def
       emailLabel: cleanString(source.contact.emailLabel, 60),
       phoneLabel: cleanString(source.contact.phoneLabel, 60),
       locationLabel: cleanString(source.contact.locationLabel, 60),
+      whatsappLabel: cleanString(source.contact.whatsappLabel, 60),
+      whatsappCta: cleanString(source.contact.whatsappCta, 80),
+      whatsappMessage: cleanString(source.contact.whatsappMessage, 240),
     },
     footer: {
       text: cleanString(source.footer.text, 200),

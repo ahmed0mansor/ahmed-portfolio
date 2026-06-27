@@ -22,10 +22,10 @@ export function Navbar({ cvDownloadEnabled, content, contentEn, defaultLanguage 
   const { profile, sections, hero } = content;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
-      <nav className="container-shell flex h-16 items-center justify-between gap-4">
-        <a href="#home" className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-2xl bg-cyanBrand text-base font-black text-slate-950 shadow-glow">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b0d12]/80 backdrop-blur-2xl">
+      <nav className="container-shell flex h-16 items-center justify-between gap-3">
+        <a href="#home" className="group flex items-center gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-[1.1rem] border border-white/10 bg-cyanBrand text-base font-black text-slate-950 shadow-glow transition group-hover:scale-105">
             {profile.logoText || "AQ"}
           </span>
           <span className="hidden text-sm font-bold text-white sm:block">
@@ -33,12 +33,12 @@ export function Navbar({ cvDownloadEnabled, content, contentEn, defaultLanguage 
           </span>
         </a>
 
-        <div className="hidden items-center gap-7 md:flex">
+        <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.035] p-1 md:flex">
           {navItems.map((item) => {
             if (item.key !== "home" && item.key !== "contact" && !(sections as Record<string, boolean>)[item.key]) return null;
             if (item.key === "contact" && !sections.contact) return null;
             return (
-              <a key={item.href} href={item.href} className="text-sm text-slate-300 transition hover:text-cyanBrand">
+              <a key={item.href} href={item.href} className="rounded-full px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/[0.06] hover:text-cyanBrand">
                 <LocalizedText ar={item.labelAr} en={item.labelEn} />
               </a>
             );

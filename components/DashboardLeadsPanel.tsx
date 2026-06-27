@@ -123,7 +123,7 @@ export function DashboardLeadsPanel() {
           <p className="section-kicker">Client Leads</p>
           <h2 className="mt-2 text-2xl font-black text-white">طلبات العملاء من AI Chat</h2>
           <p className="mt-3 max-w-3xl leading-8 text-slate-300">
-            عندما يضغط العميل على "إرسال الطلب الآن" داخل الشات، يتم حفظ الطلب هنا مع ملخص المحادثة وحالة المتابعة.
+            عندما يضغط العميل على "إرسال الطلب الآن" داخل الشات، يتم حفظ الطلب في قاعدة البيانات ثم يظهر هنا داخل لوحة التحكم بعد إدخال رمز المدير الصحيح.
           </p>
         </div>
         <div className="rounded-3xl border border-cyanBrand/20 bg-cyanBrand/10 px-5 py-4 text-center">
@@ -164,7 +164,7 @@ export function DashboardLeadsPanel() {
       <div className="mt-6 space-y-4">
         {leads.length === 0 && !loading ? (
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center text-slate-300">
-            لا توجد طلبات محملة بعد. اضغط "تحميل الطلبات" أو انتظر أول طلب من الشات.
+            لا توجد طلبات محملة بعد. أدخل رمز المدير الصحيح واضغط "تحميل الطلبات" أو انتظر أول طلب من الشات.
           </div>
         ) : null}
 

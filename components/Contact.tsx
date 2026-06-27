@@ -1,18 +1,28 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { LayoutVariant, SiteContent } from "@/lib/site-content";
 import { LocalizedText } from "./LocalizedText";
 import { SectionHeader } from "./SectionHeader";
+import { WhatsAppLink } from "./WhatsAppLink";
 
 type ContactProps = {
   content: SiteContent;
   contentEn: SiteContent;
   layoutVariant: LayoutVariant;
+  whatsappButtonEnabled: boolean;
 };
 
-export function Contact({ content, contentEn, layoutVariant }: ContactProps) {
+export function buildWhatsAppUrl(number: string, message: string) {
+  const digits = number.replace(/\D/g, "");
+  if (!digits) return "#contact";
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message || "Hello")}`;
+}
+
+export function Contact({ content, contentEn, layoutVariant, whatsappButtonEnabled }: ContactProps) {
   const { profile, contact } = content;
   const english = contentEn;
   const isCompact = layoutVariant === "compact";
+  const whatsappUrlAr = buildWhatsAppUrl(profile.whatsappNumber || profile.phone, contact.whatsappMessage);
+  const whatsappUrlEn = buildWhatsAppUrl(english.profile.whatsappNumber || profile.whatsappNumber || profile.phone, english.contact.whatsappMessage);
 
   return (
     <section id="contact" className={isCompact ? "py-12" : "py-20"}>
@@ -25,19 +35,31 @@ export function Contact({ content, contentEn, layoutVariant }: ContactProps) {
           titleEn={english.contact.title}
           subtitleEn={english.contact.subtitle}
         />
-        <div className="card-border rounded-[2rem] p-7">
-          <div className="grid gap-4 sm:grid-cols-3">
-            <a href={`mailto:${profile.email}`} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-cyanBrand/40">
+        <div className="github-panel rounded-[2rem] p-6">
+          <div className={`grid gap-4 ${whatsappButtonEnabled ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
+            <a href={`mailto:${profile.email}`} className="repo-card rounded-2xl p-4 transition hover:border-cyanBrand/40">
               <Mail className="h-5 w-5 text-cyanBrand" />
               <p className="mt-3 text-sm text-slate-400"><LocalizedText ar={contact.emailLabel} en={english.contact.emailLabel} /></p>
               <p className="mt-1 break-all text-sm font-semibold text-white">{profile.email}</p>
             </a>
-            <a href={`tel:${profile.phone}`} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-cyanBrand/40">
+            <a href={`tel:${profile.phone}`} className="repo-card rounded-2xl p-4 transition hover:border-cyanBrand/40">
               <Phone className="h-5 w-5 text-cyanBrand" />
               <p className="mt-3 text-sm text-slate-400"><LocalizedText ar={contact.phoneLabel} en={english.contact.phoneLabel} /></p>
               <p className="mt-1 text-sm font-semibold text-white">{profile.phone}</p>
             </a>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            {whatsappButtonEnabled ? (
+              <WhatsAppLink
+                hrefAr={whatsappUrlAr}
+                hrefEn={whatsappUrlEn}
+                className="whatsapp-link rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-emerald-50 transition hover:border-emerald-300/50"
+                ariaLabel={contact.whatsappCta}
+              >
+                <MessageCircle className="h-5 w-5 text-emerald-300" />
+                <p className="mt-3 text-sm text-emerald-200"><LocalizedText ar={contact.whatsappLabel} en={english.contact.whatsappLabel} /></p>
+                <p className="mt-1 text-sm font-black text-white"><LocalizedText ar={contact.whatsappCta} en={english.contact.whatsappCta} /></p>
+              </WhatsAppLink>
+            ) : null}
+            <div className="repo-card rounded-2xl p-4">
               <MapPin className="h-5 w-5 text-cyanBrand" />
               <p className="mt-3 text-sm text-slate-400"><LocalizedText ar={contact.locationLabel} en={english.contact.locationLabel} /></p>
               <p className="mt-1 text-sm font-semibold text-white"><LocalizedText ar={profile.location} en={english.profile.location} /></p>

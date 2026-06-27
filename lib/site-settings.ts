@@ -14,6 +14,7 @@ import { englishSiteContent } from "@/lib/site-translations";
 
 export type SiteSettings = {
   cvDownloadEnabled: boolean;
+  whatsappButtonEnabled: boolean;
   themeVariant: ThemeVariant;
   layoutVariant: LayoutVariant;
   defaultLanguage: SiteLanguage;
@@ -25,6 +26,7 @@ export type SiteSettings = {
 
 export const defaultSiteSettings: SiteSettings = {
   cvDownloadEnabled: true,
+  whatsappButtonEnabled: true,
   themeVariant: "cyber",
   layoutVariant: "classic",
   defaultLanguage: "ar",
@@ -36,6 +38,7 @@ export const defaultSiteSettings: SiteSettings = {
 
 const SETTING_KEYS = {
   cvDownloadEnabled: "cvDownloadEnabled",
+  whatsappButtonEnabled: "whatsappButtonEnabled",
   themeVariant: "themeVariant",
   layoutVariant: "layoutVariant",
   defaultLanguage: "defaultLanguage",
@@ -92,6 +95,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         map.get(SETTING_KEYS.cvDownloadEnabled),
         defaultSiteSettings.cvDownloadEnabled,
       ),
+      whatsappButtonEnabled: parseBoolean(
+        map.get(SETTING_KEYS.whatsappButtonEnabled),
+        defaultSiteSettings.whatsappButtonEnabled,
+      ),
       themeVariant: parseTheme(map.get(SETTING_KEYS.themeVariant)),
       layoutVariant: parseLayout(map.get(SETTING_KEYS.layoutVariant)),
       defaultLanguage: parseLanguage(map.get(SETTING_KEYS.defaultLanguage)),
@@ -120,6 +127,19 @@ export async function updateSiteSettings(settings: Partial<SiteSettings>) {
         create: {
           key: SETTING_KEYS.cvDownloadEnabled,
           value: String(settings.cvDownloadEnabled),
+        },
+      }),
+    );
+  }
+
+  if (typeof settings.whatsappButtonEnabled === "boolean") {
+    writes.push(
+      prisma.siteSetting.upsert({
+        where: { key: SETTING_KEYS.whatsappButtonEnabled },
+        update: { value: String(settings.whatsappButtonEnabled) },
+        create: {
+          key: SETTING_KEYS.whatsappButtonEnabled,
+          value: String(settings.whatsappButtonEnabled),
         },
       }),
     );

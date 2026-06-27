@@ -24,9 +24,9 @@ export function AISection({ content, contentEn, layoutVariant }: AISectionProps)
             <a href="/dashboard" className="btn-secondary"><LocalizedText ar={ai.dashboardCta} en={english.dashboardCta} /></a>
           </div>
         </div>
-        <div className="card-border rounded-[2rem] p-6">
+        <div className="github-panel rounded-[2rem] p-6">
           <div className="flex items-center gap-3">
-            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-cyanBrand/10 text-cyanBrand">
+            <div className="grid h-12 w-12 place-items-center rounded-[1.15rem] border border-white/10 bg-cyanBrand/10 text-cyanBrand">
               <Bot className="h-6 w-6" />
             </div>
             <div>
@@ -34,9 +34,9 @@ export function AISection({ content, contentEn, layoutVariant }: AISectionProps)
               <p className="text-sm text-slate-400"><LocalizedText ar={ai.assistantSubtitle} en={english.assistantSubtitle} /></p>
             </div>
           </div>
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 space-y-3">
             {ai.processSteps.map((step, index) => (
-              <div key={`${step}-${index}`} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <div key={`${step}-${index}`} className="repo-row flex gap-3 p-4">
                 <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-cyanBrand" />
                 <p className="leading-7 text-slate-300">
                   <span className="font-semibold text-white">{index + 1}. </span>

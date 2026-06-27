@@ -217,3 +217,154 @@ body {
 .site-root[data-language="en"] .text-start {
   text-align: left;
 }
+
+.whatsapp-widget {
+  right: 1.25rem;
+  left: auto;
+}
+
+.site-root[data-language="ar"] .whatsapp-widget {
+  left: 1.25rem;
+  right: auto;
+}
+
+.site-root[data-language="en"] .whatsapp-widget {
+  right: 1.25rem;
+  left: auto;
+}
+
+
+/* GitHub mobile-inspired visual layer: UI only, no logic changes */
+.github-panel {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+    color-mix(in srgb, var(--site-panel) 90%, #05070c 10%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 80px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(22px);
+}
+
+.github-device {
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(7, 10, 18, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 30px 90px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(22px);
+}
+
+.repo-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 11%, transparent), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.022)),
+    color-mix(in srgb, var(--site-panel) 88%, #05070c 12%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 55px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.repo-card::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.repo-card:hover::after {
+  opacity: 1;
+}
+
+.repo-row {
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.032);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+
+.repo-chip {
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.mobile-bottom-nav {
+  position: fixed;
+  inset-inline: 1rem;
+  bottom: 0.85rem;
+  z-index: 45;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 1.35rem;
+  background: rgba(7, 10, 18, 0.92);
+  padding: 0.45rem;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(22px);
+}
+
+.mobile-bottom-nav__item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  border-radius: 1rem;
+  padding: 0.45rem 0.25rem;
+  color: rgb(148 163 184);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  transition: color 200ms ease, background-color 200ms ease, transform 200ms ease;
+}
+
+.mobile-bottom-nav__item:hover,
+.mobile-bottom-nav__item:focus-visible {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 5.5rem;
+  }
+
+  .site-root {
+    background:
+      radial-gradient(circle at top, color-mix(in srgb, var(--accent) 19%, transparent), transparent 34%),
+      radial-gradient(circle at 20% 40%, rgba(255,255,255,.035), transparent 28%),
+      var(--site-bg);
+  }
+
+  .container-shell {
+    width: min(100% - 28px, 1120px);
+  }
+
+  .section-title {
+    line-height: 1.18;
+  }
+
+  .chat-widget {
+    bottom: 6.25rem !important;
+  }
+
+  .whatsapp-widget {
+    bottom: 6.25rem !important;
+  }
+
+  .site-root[data-language="ar"] .whatsapp-widget,
+  .site-root[data-language="en"] .whatsapp-widget {
+    bottom: 10.25rem !important;
+  }
+}

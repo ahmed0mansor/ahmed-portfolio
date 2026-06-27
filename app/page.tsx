@@ -5,10 +5,12 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
+import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { Projects } from "@/components/Projects";
 import { Services } from "@/components/Services";
 import { Skills } from "@/components/Skills";
 import { SiteShell } from "@/components/SiteShell";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getSiteSettings } from "@/lib/site-settings";
 
 export const dynamic = "force-dynamic";
@@ -32,8 +34,10 @@ export default async function Home() {
       {content.sections.skills ? <Skills content={content} contentEn={contentEn} layoutVariant={layoutVariant} /> : null}
       {content.sections.projects ? <Projects content={content} contentEn={contentEn} layoutVariant={layoutVariant} /> : null}
       {content.sections.assistant ? <AISection content={content} contentEn={contentEn} layoutVariant={layoutVariant} /> : null}
-      {content.sections.contact ? <Contact content={content} contentEn={contentEn} layoutVariant={layoutVariant} /> : null}
+      {content.sections.contact ? <Contact content={content} contentEn={contentEn} layoutVariant={layoutVariant} whatsappButtonEnabled={settings.whatsappButtonEnabled} /> : null}
       <Footer content={content} contentEn={contentEn} />
+      {settings.whatsappButtonEnabled ? <WhatsAppButton content={content} contentEn={contentEn} /> : null}
+      <MobileBottomNav content={content} />
       {content.sections.chatWidget ? <AIChatWidget greeting={content.ai.chatGreeting} greetingEn={contentEn.ai.chatGreeting} /> : null}
     </SiteShell>
   );

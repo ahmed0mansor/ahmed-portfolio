@@ -393,6 +393,7 @@ export function DashboardSettingsPanel() {
                 )}
                 <Field label="اختصار اللوجو" value={sharedContent.profile.logoText} onChange={(value) => updateSharedProfile({ logoText: value })} dir="ltr" />
                 <Field label="رقم الهاتف" value={sharedContent.profile.phone} onChange={(value) => updateSharedProfile({ phone: value })} dir="ltr" />
+                <Field label="رقم واتساب بصيغة دولية" value={sharedContent.profile.whatsappNumber} onChange={(value) => updateSharedProfile({ whatsappNumber: value })} dir="ltr" />
                 <Field label="البريد الإلكتروني" value={sharedContent.profile.email} onChange={(value) => updateSharedProfile({ email: value })} dir="ltr" />
                 <Field label="رابط CV" value={sharedContent.profile.cvUrl} onChange={(value) => updateSharedProfile({ cvUrl: value })} dir="ltr" />
               </div>
@@ -491,7 +492,8 @@ export function DashboardSettingsPanel() {
 
             {activeTab === "sections" ? (
               <div className="grid gap-4 md:grid-cols-2">
-                <Toggle label="تحميل السيرة الذاتية CV" checked={settings.cvDownloadEnabled} onChange={(value) => updateSettings({ cvDownloadEnabled: value })} />
+                <Toggle label="إظهار زر تحميل السيرة الذاتية CV" checked={settings.cvDownloadEnabled} onChange={(value) => updateSettings({ cvDownloadEnabled: value })} />
+                <Toggle label="إظهار زر واتساب المباشر" checked={settings.whatsappButtonEnabled} onChange={(value) => updateSettings({ whatsappButtonEnabled: value })} />
                 {Object.entries(sharedContent.sections).map(([key, value]) => (
                   <Toggle
                     key={key}
@@ -528,6 +530,9 @@ export function DashboardSettingsPanel() {
                   <Field label="Footer Text" value={content.footer.text} onChange={(value) => updateContent({ footer: { text: value } })} dir="ltr" />
                   <Field label="Contact Title" value={content.contact.title} onChange={(value) => updateContact({ title: value })} />
                   <Field label="Contact Subtitle" value={content.contact.subtitle} onChange={(value) => updateContact({ subtitle: value })} />
+                  <Field label="تسمية واتساب" value={content.contact.whatsappLabel} onChange={(value) => updateContact({ whatsappLabel: value })} />
+                  <Field label="زر واتساب" value={content.contact.whatsappCta} onChange={(value) => updateContact({ whatsappCta: value })} />
+                  <Field label="رسالة واتساب الجاهزة" value={content.contact.whatsappMessage} onChange={(value) => updateContact({ whatsappMessage: value })} />
                 </div>
               </div>
             ) : null}

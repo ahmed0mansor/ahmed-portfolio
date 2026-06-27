@@ -8,6 +8,7 @@ export const englishSiteContent: SiteContent = {
     titleAr: "Software Engineer | Backend & Full-Stack Developer | AI & Automation Enthusiast",
     titleEn: "Software Engineer | Backend & Full-Stack Developer | AI & Automation Enthusiast",
     phone: "735013640",
+    whatsappNumber: "967735013640",
     email: "ahmed0qaid@gmail.com",
     location: "Taiz, Yemen",
     cvUrl: "/api/cv",
@@ -48,7 +49,7 @@ export const englishSiteContent: SiteContent = {
     kicker: "Services",
     title: "Services I Provide",
     subtitle:
-      "The services are aligned with the strongest areas in the CV: backend development, databases, Flutter, applied AI, and automation.",
+      "Integrated digital services to transform ideas into practical websites, applications, and smart systems.",
   },
   services: [
     {
@@ -153,6 +154,9 @@ export const englishSiteContent: SiteContent = {
     emailLabel: "Email",
     phoneLabel: "Phone",
     locationLabel: "Location",
+    whatsappLabel: "WhatsApp",
+    whatsappCta: "Chat on WhatsApp",
+    whatsappMessage: "Hello Ahmed, I would like to ask about building a website or application.",
   },
   footer: {
     text: "© 2026 AHMED SHAWQI MANSOUR. Built as a smart portfolio and AI client intake system.",

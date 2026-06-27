@@ -25,11 +25,11 @@ export function Skills({ content, contentEn, layoutVariant }: SkillsProps) {
           {content.skills.map((skill, index) => {
             const skillEn = english.skills[index];
             return (
-              <div key={`${skill.group}-${index}`} className="card-border rounded-3xl p-6">
-                <h3 className="text-lg font-bold text-white"><LocalizedText ar={skill.group} en={skillEn?.group || skill.group} /></h3>
+              <div key={`${skill.group}-${index}`} className="repo-card rounded-3xl p-6">
+                <h3 className="text-lg font-black text-white"><LocalizedText ar={skill.group} en={skillEn?.group || skill.group} /></h3>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {skill.items.map((item, itemIndex) => (
-                    <span key={`${item}-${itemIndex}`} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-slate-200">
+                    <span key={`${item}-${itemIndex}`} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-2 text-sm font-semibold text-slate-200">
                       <LocalizedText ar={item} en={skillEn?.items[itemIndex] || item} />
                     </span>
                   ))}

@@ -102,21 +102,21 @@ export function AIChatWidget({ greeting, greetingEn }: AIChatWidgetProps) {
 
   const text = {
     title: language === "en" ? "AI Project Assistant" : "المساعد الذكي للمشاريع",
-    subtitle: language === "en" ? "Collect requirements and submit the request" : "جمع المتطلبات وإرسال الطلب",
+    subtitle: language === "en" ? "Collect requirements and send them for review" : "جمع المتطلبات وإرسالها للمعاينة والمراجعة",
     thinking: language === "en" ? "Thinking..." : "جاري التفكير...",
-    submitTitle: language === "en" ? "Submit request to dashboard" : "إرسال الطلب للوحة التحكم",
+    submitTitle: language === "en" ? "Send request for review" : "إرسال الطلب للمعاينة والمراجعة",
     name: language === "en" ? "Name *" : "الاسم *",
     phone: language === "en" ? "Phone or WhatsApp *" : "الهاتف أو واتساب *",
     email: language === "en" ? "Email optional" : "البريد اختياري",
     company: language === "en" ? "Company optional" : "الشركة اختياري",
     sent: language === "en" ? "Request submitted." : "تم إرسال الطلب.",
-    submitNow: language === "en" ? "Submit request now" : "إرسال الطلب الآن",
+    submitNow: language === "en" ? "Send request now" : "إرسال الطلب الآن",
     placeholder: language === "en" ? "Write your project idea..." : "اكتب فكرة المشروع...",
     errorReply: language === "en" ? "There was an issue generating the reply. Please try again." : "حدث خطأ في توليد الرد. حاول مرة أخرى.",
     serverError: language === "en" ? "Could not connect to the server. Check the API settings." : "تعذر الاتصال بالخادم. تأكد من إعدادات API.",
     successReply: language === "en"
-      ? "Your request has been submitted successfully. It will now appear in the dashboard and will be reviewed before contacting you."
-      : "تم إرسال طلبك بنجاح. سيظهر الطلب الآن في لوحة التحكم، وسيتم التواصل معك بعد مراجعة التفاصيل.",
+      ? "Your request has been submitted successfully. It has been saved and will be reviewed before contacting you."
+      : "تم إرسال طلبك بنجاح. تم حفظه للمعاينة والمراجعة، وسيتم التواصل معك بعد مراجعة التفاصيل.",
     submitError: language === "en" ? "Could not submit the request." : "تعذر إرسال الطلب.",
     submitErrorTry: language === "en" ? "Could not submit the request. Please try again." : "تعذر إرسال الطلب. حاول مرة أخرى.",
   };
@@ -211,7 +211,7 @@ export function AIChatWidget({ greeting, greetingEn }: AIChatWidgetProps) {
       <button
         id="chat"
         onClick={() => setIsOpen(true)}
-        className="chat-widget fixed bottom-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-cyanBrand text-slate-950 shadow-glow transition hover:-translate-y-1"
+        className="chat-widget fixed bottom-6 z-50 grid h-14 w-14 place-items-center rounded-[1.25rem] bg-cyanBrand text-slate-950 shadow-glow transition hover:-translate-y-1"
         aria-label="Open AI chat"
       >
         <Bot className="h-6 w-6" />
@@ -220,8 +220,8 @@ export function AIChatWidget({ greeting, greetingEn }: AIChatWidgetProps) {
   }
 
   return (
-    <div id="chat" dir={language === "ar" ? "rtl" : "ltr"} className="chat-widget fixed bottom-5 z-50 w-[calc(100%-40px)] max-w-md overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
-      <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.03] p-4">
+    <div id="chat" dir={language === "ar" ? "rtl" : "ltr"} className="chat-widget fixed bottom-5 z-50 w-[calc(100%-40px)] max-w-md overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0b0d12]/95 shadow-2xl backdrop-blur-xl">
+      <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] p-4">
         <div className="flex items-center gap-3">
           <div className="grid h-10 w-10 place-items-center rounded-2xl bg-cyanBrand/10 text-cyanBrand">
             <Bot className="h-5 w-5" />
