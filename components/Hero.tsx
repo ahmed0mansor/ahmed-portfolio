@@ -49,11 +49,11 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
             <Sparkles className="h-4 w-4" />
             <LocalizedText ar={hero.badge} en={english.hero.badge} />
           </div>
-          <h1 className="hero-main-title text-4xl font-black text-white md:text-6xl">
+          <h1 className="hero-main-title font-black text-white">
             <span className="hero-name-inline">
               <LocalizedText ar={profile.nameAr} en={english.profile.nameEn || profile.nameEn} />
             </span>
-            <span className="hero-highlight-title mt-3 block text-3xl md:text-5xl gradient-text">
+            <span className="hero-highlight-title mt-3 block gradient-text">
               <TypewriterTitle arTerms={arDynamicTitles} enTerms={enDynamicTitles} />
             </span>
           </h1>

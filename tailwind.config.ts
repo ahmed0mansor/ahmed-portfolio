@@ -8,7 +8,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-cairo)", "var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-cairo)", "system-ui", "sans-serif"],
       },
       colors: {
         ink: "#0F172A",

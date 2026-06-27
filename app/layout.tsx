@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Cairo, Inter } from "next/font/google";
+import { Cairo } from "next/font/google";
 import "./globals.css";
 
 const cairo = Cairo({ subsets: ["arabic", "latin"], variable: "--font-cairo" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "AHMED SHAWQI MANSOUR | Software Engineer & AI Portfolio",
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${cairo.variable} ${inter.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${cairo.variable} font-sans antialiased`}>{children}</body>
     </html>
   );
 }

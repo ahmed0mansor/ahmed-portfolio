@@ -20,6 +20,14 @@ body {
   margin: 0;
   background: #0f172a;
   color: var(--foreground);
+  font-family: var(--font-cairo), system-ui, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 .site-root {
@@ -131,9 +139,10 @@ body {
   color: transparent;
 }
 
-/* Hero title: preserve original layout, prevent name clipping, and rotate only the professional title */
+/* Hero title: restore the original balanced size while keeping the typewriter animation */
 .hero-main-title {
-  line-height: 1.16;
+  font-size: clamp(2.45rem, 5vw, 4.75rem);
+  line-height: 1.14;
   padding-block: 0.04em 0.08em;
   overflow: visible;
   text-wrap: balance;
@@ -144,12 +153,18 @@ body {
   max-width: 100%;
   white-space: nowrap;
   word-break: keep-all;
-  line-height: 1.1;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+html[dir="ltr"] .hero-name-inline {
+  letter-spacing: -0.035em;
 }
 
 .hero-highlight-title {
   display: block;
-  line-height: 1.2;
+  font-size: clamp(1.9rem, 3.85vw, 3.45rem);
+  line-height: 1.18;
   padding-block: 0.06em 0.12em;
   overflow: visible;
   white-space: nowrap;
@@ -158,28 +173,25 @@ body {
 
 @media (max-width: 640px) {
   .hero-main-title {
-    line-height: 1.2;
-  }
-
-  .hero-name-inline {
-    font-size: clamp(2rem, 9.5vw, 3rem);
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.18;
   }
 
   .hero-highlight-title {
-    font-size: clamp(2rem, 10vw, 3rem);
-    line-height: 1.25;
+    font-size: clamp(1.75rem, 8.4vw, 2.55rem);
+    line-height: 1.22;
     white-space: normal;
     text-wrap: balance;
   }
 }
 
 @media (max-width: 380px) {
-  .hero-name-inline {
-    font-size: clamp(1.8rem, 8.8vw, 2.45rem);
+  .hero-main-title {
+    font-size: clamp(1.8rem, 8.4vw, 2.45rem);
   }
 
   .hero-highlight-title {
-    font-size: clamp(1.7rem, 8.8vw, 2.35rem);
+    font-size: clamp(1.55rem, 7.8vw, 2.15rem);
   }
 }
 
