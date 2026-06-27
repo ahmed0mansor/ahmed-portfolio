@@ -1,6 +1,7 @@
 import { ArrowLeft, Download, Sparkles } from "lucide-react";
 import type { LayoutVariant, SiteContent } from "@/lib/site-content";
 import { LocalizedText } from "./LocalizedText";
+import { TypewriterTitle } from "./TypewriterTitle";
 
 type HeroProps = {
   cvDownloadEnabled: boolean;
@@ -14,6 +15,24 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
   const english = contentEn;
   const isCompact = layoutVariant === "compact";
   const isShowcase = layoutVariant === "showcase";
+  const arDynamicTitles = [
+    hero.highlightedTitle,
+    "مطور باك اند",
+    "مطور Full-Stack",
+    "مطور تطبيقات Flutter",
+    "مصمم قواعد بيانات",
+    "مطور حلول ذكاء اصطناعي",
+    "مطور أتمتة n8n",
+  ];
+  const enDynamicTitles = [
+    english.hero.highlightedTitle,
+    "Backend Developer",
+    "Full-Stack Developer",
+    "Flutter Developer",
+    "Database Designer",
+    "AI Solutions Developer",
+    "n8n Automation Developer",
+  ];
 
   return (
     <section id="home" className={`relative overflow-hidden ${isCompact ? "py-14 md:py-18" : "py-20 md:py-28"}`}>
@@ -24,10 +43,10 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
             <Sparkles className="h-4 w-4" />
             <LocalizedText ar={hero.badge} en={english.hero.badge} />
           </div>
-          <h1 className="text-4xl font-black leading-tight text-white md:text-6xl">
+          <h1 className="hero-main-title text-4xl font-black text-white md:text-6xl">
             <LocalizedText ar={profile.nameAr} en={english.profile.nameEn || profile.nameEn} />
-            <span className="mt-3 block text-3xl md:text-5xl gradient-text">
-              <LocalizedText ar={hero.highlightedTitle} en={english.hero.highlightedTitle} />
+            <span className="hero-highlight-title mt-3 block text-3xl md:text-5xl gradient-text">
+              <TypewriterTitle arTerms={arDynamicTitles} enTerms={enDynamicTitles} />
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-9 text-slate-300">

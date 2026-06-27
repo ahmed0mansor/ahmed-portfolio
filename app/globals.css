@@ -131,6 +131,36 @@ body {
   color: transparent;
 }
 
+/* Prevent Arabic hero title clipping/wrapping in large gradient text */
+.hero-main-title {
+  line-height: 1.16;
+  padding-block: 0.04em 0.08em;
+  overflow: visible;
+  text-wrap: balance;
+}
+
+.hero-highlight-title {
+  display: inline-block;
+  line-height: 1.2;
+  padding-block: 0.06em 0.12em;
+  overflow: visible;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+@media (max-width: 640px) {
+  .hero-main-title {
+    line-height: 1.2;
+  }
+
+  .hero-highlight-title {
+    font-size: clamp(2rem, 11vw, 3rem);
+    line-height: 1.25;
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
 .card-border {
   border: 1px solid rgba(148, 163, 184, 0.18);
   background: linear-gradient(180deg, color-mix(in srgb, var(--site-panel) 82%, transparent), color-mix(in srgb, var(--site-bg) 82%, transparent));
@@ -358,5 +388,55 @@ body {
   .chat-widget,
   .whatsapp-widget {
     bottom: 6.25rem !important;
+  }
+}
+
+/* Hero rotating typewriter title */
+.typewriter-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.25em;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.typewriter-text {
+  display: inline-block;
+  min-width: 10ch;
+  text-align: center;
+}
+
+.typewriter-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.9em;
+  margin-inline-start: 0.14em;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.88;
+  animation: typewriter-caret-blink 0.82s steps(2, start) infinite;
+}
+
+@keyframes typewriter-caret-blink {
+  0%, 48% { opacity: 0.9; }
+  49%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-caret {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .typewriter-title {
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  .typewriter-text {
+    min-width: 0;
   }
 }
