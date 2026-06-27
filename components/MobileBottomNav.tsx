@@ -16,7 +16,7 @@ const navItems = [
 
 export function MobileBottomNav({ content }: MobileBottomNavProps) {
   return (
-    <nav className="mobile-bottom-nav md:hidden" aria-label="Mobile quick navigation">
+    <nav className="mobile-bottom-nav xl:hidden" aria-label="Mobile quick navigation">
       {navItems.map((item) => {
         if (item.key !== "home" && !(content.sections as Record<string, boolean>)[item.key]) return null;
         const Icon = item.icon;

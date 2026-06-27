@@ -43,8 +43,8 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
   return (
     <section id="home" className={`relative overflow-hidden ${isCompact ? "py-14 md:py-18" : "py-20 md:py-28"}`}>
       <div className="absolute inset-0 -z-10 bg-grid bg-[size:36px_36px] opacity-40" />
-      <div className={`container-shell grid items-center gap-12 ${isShowcase ? "lg:grid-cols-[0.85fr_1.15fr]" : "lg:grid-cols-[1.1fr_0.9fr]"}`}>
-        <div className={isShowcase ? "order-2 lg:order-1" : ""}>
+      <div className={`container-shell grid items-center gap-12 ${isShowcase ? "xl:grid-cols-[0.85fr_1.15fr]" : "xl:grid-cols-[1.1fr_0.9fr]"}`}>
+        <div className={isShowcase ? "order-2 xl:order-1" : ""}>
           <div className="repo-chip mb-6 inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-cyan-100">
             <Sparkles className="h-4 w-4" />
             <LocalizedText ar={hero.badge} en={english.hero.badge} />
@@ -81,7 +81,7 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
         </div>
 
         {!isCompact ? (
-          <div className={`github-device relative rounded-[2rem] p-5 shadow-glow ${isShowcase ? "order-1 lg:order-2" : ""}`}>
+          <div className={`github-device relative mx-auto w-full max-w-[520px] rounded-[2rem] p-5 shadow-glow ${isShowcase ? "order-1 xl:order-2" : ""}`}>
             <div className="absolute -left-6 -top-6 h-28 w-28 rounded-full bg-cyanBrand/20 blur-3xl" />
             <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-violetBrand/20 blur-3xl" />
             <div className="relative rounded-[1.5rem] border border-white/10 bg-[#0b0d12]/90 p-5">

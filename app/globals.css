@@ -476,3 +476,63 @@ html[dir="ltr"] .hero-name-inline {
     min-width: 0;
   }
 }
+
+
+/* Responsive sizing and navigation polish */
+.navbar-shell {
+  min-width: 0;
+}
+
+@media (min-width: 1280px) {
+  .navbar-shell {
+    width: min(1180px, calc(100% - 40px));
+  }
+}
+
+@media (max-width: 1279px) {
+  body {
+    padding-bottom: 5.5rem;
+  }
+
+  .container-shell {
+    width: min(100% - 32px, 1120px);
+  }
+
+  #home {
+    min-height: auto;
+  }
+
+  #home .github-device {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-main-title {
+    font-size: clamp(1.7rem, 5vw, 2.65rem);
+  }
+
+  .hero-highlight-title {
+    font-size: clamp(1.15rem, 3.8vw, 1.75rem);
+  }
+
+  #home {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-nav {
+    inset-inline: 0.75rem;
+    bottom: 0.7rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .mobile-bottom-nav {
+    width: min(520px, calc(100% - 32px));
+    margin-inline: auto;
+    inset-inline: 0;
+  }
+}
