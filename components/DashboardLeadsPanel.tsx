@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Bell, CheckCircle2, Clock3, Loader2, Mail, Phone, RefreshCw, UserRound } from "lucide-react";
+import { CheckCircle2, Clock3, Loader2, Mail, Phone, RefreshCw, UserRound } from "lucide-react";
 
 type LeadStatus = "NEW" | "REVIEWED" | "CONTACTED" | "ACCEPTED" | "REJECTED";
 
@@ -61,7 +61,7 @@ function formatDate(value: string) {
   }
 }
 
-export function DashboardLeadsPanel() {
+export function DashboardLeadsPanel({ adminToken, autoLoad = false }: { adminToken?: string; autoLoad?: boolean }) {
   const [token, setToken] = useState("");
   const [leads, setLeads] = useState<ClientLead[]>([]);
   const [loading, setLoading] = useState(false);
@@ -72,21 +72,28 @@ export function DashboardLeadsPanel() {
   const newCount = useMemo(() => leads.filter((lead) => lead.status === "NEW").length, [leads]);
 
   useEffect(() => {
-    const savedToken = window.sessionStorage.getItem("admin_token") || "";
+    const savedToken = adminToken || window.sessionStorage.getItem("admin_token") || "";
     setToken(savedToken);
-  }, []);
+  }, [adminToken]);
 
-  async function loadLeads() {
+  useEffect(() => {
+    if (adminToken && autoLoad) {
+      loadLeads(adminToken);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminToken, autoLoad]);
+
+  async function loadLeads(currentToken = token) {
     setError("");
     setLoading(true);
     try {
       const res = await fetch("/api/leads", {
-        headers: token ? { "x-admin-token": token } : undefined,
+        headers: currentToken ? { "x-admin-token": currentToken } : undefined,
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "تعذر تحميل الطلبات.");
       setLeads(data.leads || []);
-      if (token) window.sessionStorage.setItem("admin_token", token);
+      if (currentToken) window.sessionStorage.setItem("admin_token", currentToken);
     } catch (err) {
       setError(err instanceof Error ? err.message : "تعذر تحميل الطلبات.");
     } finally {
@@ -102,7 +109,7 @@ export function DashboardLeadsPanel() {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          ...(token ? { "x-admin-token": token } : {}),
+          ...(adminToken || token ? { "x-admin-token": adminToken || token } : {}),
         },
         body: JSON.stringify({ id, status }),
       });
@@ -132,32 +139,17 @@ export function DashboardLeadsPanel() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 md:grid-cols-[1fr_auto]">
-        <input
-          value={token}
-          type="password"
-          autoComplete="off"
-          maxLength={200}
-          onChange={(event) => setToken(event.target.value)}
-          placeholder="ADMIN_TOKEN لقراءة الطلبات وتعديل حالتها"
-          className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyanBrand"
-        />
+      <div className="mt-6 flex justify-start">
         <button
-          onClick={loadLeads}
-          disabled={loading}
+          onClick={() => loadLeads(adminToken || token)}
+          disabled={loading || !(adminToken || token)}
           className="inline-flex items-center justify-center gap-2 rounded-2xl bg-cyanBrand px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-sky-300 disabled:opacity-50"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-          تحميل الطلبات
+          تحديث الطلبات
         </button>
       </div>
 
-      <div className="mt-4 rounded-3xl border border-amber-300/20 bg-amber-300/10 p-4 text-sm leading-8 text-amber-50">
-        <div className="mb-1 flex items-center gap-2 font-black">
-          <Bell className="h-4 w-4" /> الإشعارات
-        </div>
-        يوجد إشعار داخلي هنا داخل الداشبورد. ويمكن تفعيل إشعار خارجي بإضافة متغيرات Resend للبريد أو Telegram في Vercel.
-      </div>
 
       {error ? <p className="mt-4 rounded-2xl border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-200">{error}</p> : null}
 

@@ -355,16 +355,8 @@ body {
     line-height: 1.18;
   }
 
-  .chat-widget {
-    bottom: 6.25rem !important;
-  }
-
+  .chat-widget,
   .whatsapp-widget {
     bottom: 6.25rem !important;
-  }
-
-  .site-root[data-language="ar"] .whatsapp-widget,
-  .site-root[data-language="en"] .whatsapp-widget {
-    bottom: 10.25rem !important;
   }
 }

@@ -179,7 +179,7 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
   );
 }
 
-export function DashboardSettingsPanel() {
+export function DashboardSettingsPanel({ adminToken, autoLoad = false }: { adminToken?: string; autoLoad?: boolean }) {
   const [token, setToken] = useState("");
   const [settings, setSettings] = useState<DashboardSettings | null>(null);
   const [activeTab, setActiveTab] = useState<TabKey>("general");
@@ -189,9 +189,16 @@ export function DashboardSettingsPanel() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const savedToken = window.sessionStorage.getItem("admin_token") || "";
+    const savedToken = adminToken || window.sessionStorage.getItem("admin_token") || "";
     setToken(savedToken);
-  }, []);
+  }, [adminToken]);
+
+  useEffect(() => {
+    if (adminToken && autoLoad && !settings) {
+      loadSettings(adminToken);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminToken, autoLoad]);
 
   async function loadSettings(currentToken = token) {
     setMessage("");
@@ -228,7 +235,7 @@ export function DashboardSettingsPanel() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "x-admin-token": token,
+          "x-admin-token": adminToken || token,
         },
         body: JSON.stringify(nextSettings),
       });
@@ -325,22 +332,14 @@ export function DashboardSettingsPanel() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-[1fr_auto]">
-        <input
-          value={token}
-          onChange={(event) => setToken(event.target.value)}
-          placeholder="ضع ADMIN_TOKEN هنا"
-          className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyanBrand/50"
-          dir="ltr"
-          type="password"
-          autoComplete="off"
-          maxLength={200}
-        />
-        <button onClick={() => loadSettings()} disabled={loading || !token} className="btn-primary gap-2 disabled:cursor-not-allowed disabled:opacity-50">
-          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-          تحميل الإعدادات
-        </button>
-      </div>
+      {!settings ? (
+        <div className="mt-6 flex justify-start">
+          <button onClick={() => loadSettings(adminToken || token)} disabled={loading || !(adminToken || token)} className="btn-primary gap-2 disabled:cursor-not-allowed disabled:opacity-50">
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+            تحميل الإعدادات
+          </button>
+        </div>
+      ) : null}
 
       {settings ? (
         <>
