@@ -21,7 +21,6 @@ export function AISection({ content, contentEn, layoutVariant }: AISectionProps)
           <SectionHeader kicker={ai.kicker} title={ai.title} subtitle={ai.subtitle} kickerEn={english.kicker} titleEn={english.title} subtitleEn={english.subtitle} />
           <div className="mt-8 flex gap-3">
             <a href="#chat" className="btn-primary"><LocalizedText ar={ai.primaryCta} en={english.primaryCta} /></a>
-            <a href="/dashboard" className="btn-secondary"><LocalizedText ar={ai.dashboardCta} en={english.dashboardCta} /></a>
           </div>
         </div>
         <div className="github-panel rounded-[2rem] p-6">

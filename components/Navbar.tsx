@@ -9,6 +9,7 @@ const navItems = [
   { key: "projects", labelAr: "المشاريع", labelEn: "Projects", href: "#projects" },
   { key: "assistant", labelAr: "المساعد الذكي", labelEn: "AI Assistant", href: "#assistant" },
   { key: "contact", labelAr: "تواصل", labelEn: "Contact", href: "#contact" },
+  { key: "dashboard", labelAr: "لوحة التحكم", labelEn: "Dashboard", href: "/dashboard" },
 ] as const;
 
 type NavbarProps = {
@@ -35,6 +36,13 @@ export function Navbar({ cvDownloadEnabled, content, contentEn, defaultLanguage 
 
         <div className="hidden shrink-0 items-center gap-1 rounded-full border border-white/10 bg-white/[0.035] p-1 xl:flex">
           {navItems.map((item) => {
+            if (item.key === "dashboard") {
+              return (
+                <a key={item.href} href={item.href} className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold text-cyanBrand transition hover:bg-cyanBrand/10 hover:text-white">
+                  <LocalizedText ar={item.labelAr} en={item.labelEn} />
+                </a>
+              );
+            }
             if (item.key !== "home" && item.key !== "contact" && !(sections as Record<string, boolean>)[item.key]) return null;
             if (item.key === "contact" && !sections.contact) return null;
             return (
