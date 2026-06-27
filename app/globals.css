@@ -139,10 +139,10 @@ select {
   color: transparent;
 }
 
-/* Hero title: restore the original balanced size while keeping the typewriter animation */
+/* Hero title: compact balanced size, close to the pre-typewriter design */
 .hero-main-title {
-  font-size: clamp(2.45rem, 5vw, 4.75rem);
-  line-height: 1.14;
+  font-size: clamp(1.8rem, 3vw, 2.85rem);
+  line-height: 1.18;
   padding-block: 0.04em 0.08em;
   overflow: visible;
   text-wrap: balance;
@@ -163,8 +163,8 @@ html[dir="ltr"] .hero-name-inline {
 
 .hero-highlight-title {
   display: block;
-  font-size: clamp(1.9rem, 3.85vw, 3.45rem);
-  line-height: 1.18;
+  font-size: clamp(1.25rem, 2.25vw, 1.95rem);
+  line-height: 1.25;
   padding-block: 0.06em 0.12em;
   overflow: visible;
   white-space: nowrap;
@@ -173,13 +173,13 @@ html[dir="ltr"] .hero-name-inline {
 
 @media (max-width: 640px) {
   .hero-main-title {
-    font-size: clamp(2rem, 9vw, 3rem);
-    line-height: 1.18;
+    font-size: clamp(1.55rem, 6.4vw, 2.05rem);
+    line-height: 1.22;
   }
 
   .hero-highlight-title {
-    font-size: clamp(1.75rem, 8.4vw, 2.55rem);
-    line-height: 1.22;
+    font-size: clamp(1.15rem, 5.4vw, 1.55rem);
+    line-height: 1.28;
     white-space: normal;
     text-wrap: balance;
   }
@@ -187,11 +187,11 @@ html[dir="ltr"] .hero-name-inline {
 
 @media (max-width: 380px) {
   .hero-main-title {
-    font-size: clamp(1.8rem, 8.4vw, 2.45rem);
+    font-size: clamp(1.38rem, 5.9vw, 1.85rem);
   }
 
   .hero-highlight-title {
-    font-size: clamp(1.55rem, 7.8vw, 2.15rem);
+    font-size: clamp(1.05rem, 5vw, 1.38rem);
   }
 }
 
