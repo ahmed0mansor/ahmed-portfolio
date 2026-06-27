@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum LeadStatus {
+  NEW
+  REVIEWED
+  CONTACTED
+  ACCEPTED
+  REJECTED
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String?
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+}
+
+model ClientLead {
+  id          String        @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  companyName String?
+  projectType String
+  budgetRange String?
+  timeline    String?
+  status      LeadStatus    @default(NEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  sessions    ChatSession[]
+  briefs      ProjectBrief[]
+}
+
+model ChatSession {
+  id                   String        @id @default(cuid())
+  clientLeadId          String?
+  openaiConversationId  String?
+  status               String        @default("active")
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  clientLead           ClientLead?   @relation(fields: [clientLeadId], references: [id], onDelete: SetNull)
+  messages             ChatMessage[]
+}
+
+model ChatMessage {
+  id        String      @id @default(cuid())
+  sessionId String
+  role      MessageRole
+  content   String
+  createdAt DateTime    @default(now())
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model ProjectBrief {
+  id               String     @id @default(cuid())
+  clientLeadId      String
+  projectType       String
+  mainGoal          String?
+  targetUsers       String[]   @default([])
+  requiredPages     String[]   @default([])
+  requiredFeatures  String[]   @default([])
+  preferredStyle    String?
+  language          String?
+  budgetRange       String?
+  timeline          String?
+  aiSummary         String
+  rawJson           Json?
+  createdAt         DateTime   @default(now())
+  clientLead        ClientLead @relation(fields: [clientLeadId], references: [id], onDelete: Cascade)
+}
+
+model SiteSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
