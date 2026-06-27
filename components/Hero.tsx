@@ -33,6 +33,12 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
     "AI Solutions Developer",
     "n8n Automation Developer",
   ];
+  const profileSubtitleAr = profile.titleAr
+    .replace(/^مهندس برمجيات\s*[|،\-–—]*\s*/, "")
+    .trim() || profile.titleAr;
+  const profileSubtitleEn = (english.profile.titleEn || profile.titleEn)
+    .replace(/^Software Engineer\s*[|,\-–—]*\s*/i, "")
+    .trim() || (english.profile.titleEn || profile.titleEn);
 
   return (
     <section id="home" className={`relative overflow-hidden ${isCompact ? "py-14 md:py-18" : "py-20 md:py-28"}`}>
@@ -43,16 +49,16 @@ export function Hero({ cvDownloadEnabled, content, contentEn, layoutVariant }: H
             <Sparkles className="h-4 w-4" />
             <LocalizedText ar={hero.badge} en={english.hero.badge} />
           </div>
-          <h1 className="hero-main-title font-black text-white">
-            <span className="hero-name-line">
+          <h1 className="hero-main-title text-4xl font-black text-white md:text-6xl">
+            <span className="hero-name-inline">
               <LocalizedText ar={profile.nameAr} en={english.profile.nameEn || profile.nameEn} />
             </span>
-            <span className="hero-highlight-title gradient-text">
+            <span className="hero-highlight-title mt-3 block text-3xl md:text-5xl gradient-text">
               <TypewriterTitle arTerms={arDynamicTitles} enTerms={enDynamicTitles} />
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-9 text-slate-300">
-            <LocalizedText ar={profile.titleAr} en={english.profile.titleEn || profile.titleEn} />
+            <LocalizedText ar={profileSubtitleAr} en={profileSubtitleEn} />
           </p>
           <p className="mt-5 max-w-2xl text-base leading-8 text-slate-400">
             <LocalizedText ar={hero.description} en={english.hero.description} />

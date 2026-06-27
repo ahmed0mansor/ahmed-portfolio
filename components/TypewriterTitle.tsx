@@ -64,7 +64,7 @@ function useTypewriter(terms: string[]) {
     return () => window.clearTimeout(timer);
   }, [isDeleting, safeTerms, termIndex, visibleText]);
 
-  return visibleText || safeTerms[0] || "";
+  return visibleText;
 }
 
 function TypewriterSpan({ terms, className }: { terms: string[]; className?: string }) {

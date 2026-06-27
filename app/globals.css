@@ -131,61 +131,51 @@ body {
   color: transparent;
 }
 
-/* Stable hero title: keep the name in one line and reserve space for the animated title */
+/* Hero title: preserve original layout, prevent name clipping, and rotate only the professional title */
 .hero-main-title {
-  display: block;
-  line-height: 1.08;
-  padding-block: 0.04em 0.12em;
+  line-height: 1.16;
+  padding-block: 0.04em 0.08em;
   overflow: visible;
+  text-wrap: balance;
 }
 
-.hero-name-line {
-  display: block;
+.hero-name-inline {
+  display: inline-block;
   max-width: 100%;
   white-space: nowrap;
   word-break: keep-all;
-  text-wrap: nowrap;
-  font-size: clamp(2.35rem, 6.4vw, 5.6rem);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-}
-
-html[dir="ltr"] .hero-name-line {
-  letter-spacing: -0.045em;
+  line-height: 1.1;
 }
 
 .hero-highlight-title {
   display: block;
-  width: 100%;
-  margin-top: 0.65rem;
-  line-height: 1.16;
-  padding-block: 0.08em 0.14em;
+  line-height: 1.2;
+  padding-block: 0.06em 0.12em;
   overflow: visible;
   white-space: nowrap;
   word-break: keep-all;
-  font-size: clamp(2.2rem, 5.2vw, 4.7rem);
 }
 
 @media (max-width: 640px) {
   .hero-main-title {
-    line-height: 1.14;
+    line-height: 1.2;
   }
 
-  .hero-name-line {
-    font-size: clamp(2.05rem, 9.2vw, 3.1rem);
-    letter-spacing: -0.04em;
+  .hero-name-inline {
+    font-size: clamp(2rem, 9.5vw, 3rem);
   }
 
   .hero-highlight-title {
-    font-size: clamp(1.9rem, 9.5vw, 2.85rem);
-    line-height: 1.2;
-    white-space: nowrap;
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.25;
+    white-space: normal;
+    text-wrap: balance;
   }
 }
 
 @media (max-width: 380px) {
-  .hero-name-line {
-    font-size: clamp(1.85rem, 8.5vw, 2.45rem);
+  .hero-name-inline {
+    font-size: clamp(1.8rem, 8.8vw, 2.45rem);
   }
 
   .hero-highlight-title {
