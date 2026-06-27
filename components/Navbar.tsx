@@ -38,7 +38,7 @@ export function Navbar({ cvDownloadEnabled, content, contentEn, defaultLanguage 
           {navItems.map((item) => {
             if (item.key === "dashboard") {
               return (
-                <a key={item.href} href={item.href} className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold text-cyanBrand transition hover:bg-cyanBrand/10 hover:text-white">
+                <a key={item.href} href={item.href} className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/[0.06] hover:text-cyanBrand">
                   <LocalizedText ar={item.labelAr} en={item.labelEn} />
                 </a>
               );
