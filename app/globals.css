@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #38bdf8;
+}
+
+@property --accent-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #8b5cf6;
+}
+
+@property --site-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0f172a;
+}
+
+@property --site-panel {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #111827;
+}
+
+
 :root {
   color-scheme: dark;
   --background: #0f172a;
@@ -36,7 +61,13 @@ select {
   --site-bg: #0f172a;
   --site-panel: #111827;
   min-height: 100vh;
-  transition: background 700ms ease, color 700ms ease;
+  transition:
+    --accent 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+    --accent-2 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+    --site-bg 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+    --site-panel 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 700ms ease;
   background: radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 24%, transparent), transparent 28%),
     radial-gradient(circle at top right, color-mix(in srgb, var(--accent-2) 22%, transparent), transparent 30%),
     var(--site-bg);
@@ -133,10 +164,11 @@ select {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent, #38bdf8), var(--accent-2, #a78bfa), #e879f9);
+  background: linear-gradient(135deg, var(--accent, #38bdf8), var(--accent-2, #a78bfa), color-mix(in srgb, var(--accent-2) 70%, #e879f9));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  transition: background 1200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Hero title: compact balanced size, close to the pre-typewriter design */
@@ -224,8 +256,14 @@ html[dir="ltr"] .hero-name-inline {
 
 .site-root[data-theme-mode="auto"] .card-border,
 .site-root[data-theme-mode="auto"] .btn-primary,
-.site-root[data-theme-mode="auto"] .btn-secondary {
-  transition-duration: 700ms;
+.site-root[data-theme-mode="auto"] .btn-secondary,
+.site-root[data-theme-mode="auto"] .repo-chip,
+.site-root[data-theme-mode="auto"] .repo-row,
+.site-root[data-theme-mode="auto"] .github-device,
+.site-root[data-theme-mode="auto"] .gradient-text,
+.site-root[data-theme-mode="auto"] .typewriter-caret {
+  transition-duration: 1200ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .site-root[data-language="ar"] .lang-en {
@@ -444,12 +482,13 @@ html[dir="ltr"] .hero-name-inline {
 
 .typewriter-caret {
   display: inline-block;
-  width: 0.08em;
-  height: 0.9em;
+  width: 0.085em;
+  height: 0.92em;
   margin-inline-start: 0.14em;
   border-radius: 999px;
-  background: currentColor;
-  opacity: 0.88;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+  opacity: 0.95;
   animation: typewriter-caret-blink 0.82s steps(2, start) infinite;
 }
 
