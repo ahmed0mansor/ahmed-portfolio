@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Download, Eye, Loader2, Palette, RefreshCcw, Save, ShieldCheck, SlidersHorizontal, Timer } from "lucide-react";
+import { Download, Eye, Loader2, Palette, Plus, RefreshCcw, Save, ShieldCheck, SlidersHorizontal, Timer, Trash2 } from "lucide-react";
 import {
+  contactItemIconKeys,
   defaultSiteContent,
   languageVariants,
   layoutVariants,
   serviceIconKeys,
   themeVariants,
+  type ContactItemContent,
+  type ContactItemIconKey,
   type LayoutVariant,
   type SiteLanguage,
   type ServiceContent,
@@ -18,7 +21,7 @@ import {
 import { englishSiteContent } from "@/lib/site-translations";
 import type { SiteSettings } from "@/lib/site-settings";
 
-type TabKey = "general" | "design" | "sections" | "content" | "lists" | "assistant";
+type TabKey = "general" | "design" | "sections" | "content" | "contactCards" | "lists" | "assistant";
 
 type DashboardSettings = SiteSettings;
 
@@ -27,6 +30,7 @@ const tabItems: { key: TabKey; label: string }[] = [
   { key: "design", label: "الألوان والشكل" },
   { key: "sections", label: "الأقسام" },
   { key: "content", label: "النصوص" },
+  { key: "contactCards", label: "بطاقات التواصل" },
   { key: "lists", label: "المهارات والمشاريع" },
   { key: "assistant", label: "AI" },
 ];
@@ -52,6 +56,14 @@ const languageLabels: Record<SiteLanguage, string> = {
 const colorRotationLabels: Record<number, string> = {
   10: "كل 10 ثواني",
   15: "كل 15 ثانية",
+};
+
+const contactIconLabels: Record<ContactItemIconKey, string> = {
+  mail: "بريد",
+  phone: "هاتف",
+  whatsapp: "واتساب",
+  location: "موقع",
+  link: "رابط مخصص",
 };
 
 function lines(value: string) {
@@ -311,6 +323,35 @@ export function DashboardSettingsPanel({ adminToken, autoLoad = false }: { admin
     updateContent({ contact: { ...content.contact, ...patch } });
   }
 
+  function updateContactItems(items: ContactItemContent[]) {
+    updateContact({ items });
+  }
+
+  function updateContactItem(index: number, patch: Partial<ContactItemContent>) {
+    const items = content.contact.items.map((item, itemIndex) => (itemIndex === index ? { ...item, ...patch } : item));
+    updateContactItems(items);
+  }
+
+  function addContactItem() {
+    const nextIndex = content.contact.items.length + 1;
+    updateContactItems([
+      ...content.contact.items,
+      {
+        id: `custom-${Date.now()}`,
+        icon: "link",
+        label: isEnglishEditor ? `Custom item ${nextIndex}` : `خانة مخصصة ${nextIndex}`,
+        value: isEnglishEditor ? "New contact detail" : "بيان تواصل جديد",
+        href: "",
+        enabled: true,
+        highlighted: false,
+      },
+    ]);
+  }
+
+  function removeContactItem(index: number) {
+    updateContactItems(content.contact.items.filter((_, itemIndex) => itemIndex !== index));
+  }
+
   const content = editorLanguage === "en"
     ? settings?.contentEn ?? englishSiteContent
     : settings?.content ?? defaultSiteContent;
@@ -532,6 +573,77 @@ export function DashboardSettingsPanel({ adminToken, autoLoad = false }: { admin
                   <Field label="تسمية واتساب" value={content.contact.whatsappLabel} onChange={(value) => updateContact({ whatsappLabel: value })} />
                   <Field label="زر واتساب" value={content.contact.whatsappCta} onChange={(value) => updateContact({ whatsappCta: value })} />
                   <Field label="رسالة واتساب الجاهزة" value={content.contact.whatsappMessage} onChange={(value) => updateContact({ whatsappMessage: value })} />
+                </div>
+              </div>
+            ) : null}
+
+            {activeTab === "contactCards" ? (
+              <div className="space-y-6">
+                <div className="rounded-3xl border border-cyanBrand/15 bg-cyanBrand/5 p-4 text-sm leading-7 text-cyan-50">
+                  تحكم في خانات قسم التواصل: إظهار أو إخفاء كل خانة، تعديل العنوان والقيمة والرابط، إضافة خانة جديدة، أو حذف خانة غير مطلوبة.
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                  <Field label="Contact Kicker" value={content.contact.kicker} onChange={(value) => updateContact({ kicker: value })} />
+                  <Field label="Contact Title" value={content.contact.title} onChange={(value) => updateContact({ title: value })} />
+                  <Field label="Contact Subtitle" value={content.contact.subtitle} onChange={(value) => updateContact({ subtitle: value })} />
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <h3 className="text-xl font-black text-white">خانات التواصل</h3>
+                    <p className="mt-1 text-sm text-slate-400">اللغة الحالية للتعديل: {isEnglishEditor ? "English" : "العربية"}</p>
+                  </div>
+                  <button type="button" onClick={addContactItem} className="btn-primary gap-2">
+                    <Plus className="h-4 w-4" /> إضافة خانة
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  {content.contact.items.map((item, index) => (
+                    <div key={item.id || index} className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+                      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                        <div className="text-sm font-bold text-white">
+                          {index + 1}. {item.label || "خانة تواصل"}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeContactItem(index)}
+                          className="inline-flex items-center gap-2 rounded-full border border-red-400/20 px-3 py-2 text-xs font-bold text-red-200 transition hover:bg-red-400/10"
+                        >
+                          <Trash2 className="h-4 w-4" /> حذف
+                        </button>
+                      </div>
+
+                      <div className="mb-4 grid gap-3 md:grid-cols-2">
+                        <Toggle label="إظهار هذه الخانة" checked={item.enabled} onChange={(value) => updateContactItem(index, { enabled: value })} />
+                        <Toggle label="تمييز الخانة بلون واتساب/بارز" checked={item.highlighted} onChange={(value) => updateContactItem(index, { highlighted: value })} />
+                      </div>
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <label className="block">
+                          <span className="mb-2 block text-sm font-semibold text-slate-200">الأيقونة</span>
+                          <select
+                            value={item.icon}
+                            onChange={(event) => updateContactItem(index, { icon: event.target.value as ContactItemIconKey })}
+                            className="w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyanBrand/50"
+                          >
+                            {contactItemIconKeys.map((icon) => (
+                              <option key={icon} value={icon}>{contactIconLabels[icon]}</option>
+                            ))}
+                          </select>
+                        </label>
+                        <Field label="معرّف الخانة ID" value={item.id} onChange={(value) => updateContactItem(index, { id: value })} dir="ltr" />
+                        <Field label="العنوان" value={item.label} onChange={(value) => updateContactItem(index, { label: value })} />
+                        <Field label="القيمة المعروضة" value={item.value} onChange={(value) => updateContactItem(index, { value })} />
+                        <Field label="الرابط عند الضغط" value={item.href} onChange={(value) => updateContactItem(index, { href: value })} dir="ltr" />
+                      </div>
+
+                      <p className="mt-3 text-xs leading-6 text-slate-400">
+                        أمثلة الروابط: mailto:name@email.com أو tel:735013640 أو https://wa.me/967735013640 أو اتركه فارغًا إذا لا تريد رابطًا.
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             ) : null}

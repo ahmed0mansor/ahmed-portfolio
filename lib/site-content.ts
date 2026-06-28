@@ -10,6 +10,9 @@ export type SiteLanguage = (typeof languageVariants)[number];
 export const serviceIconKeys = ["server", "code", "smartphone", "database", "bot", "workflow"] as const;
 export type ServiceIconKey = (typeof serviceIconKeys)[number];
 
+export const contactItemIconKeys = ["mail", "phone", "whatsapp", "location", "link"] as const;
+export type ContactItemIconKey = (typeof contactItemIconKeys)[number];
+
 export type ProfileContent = {
   nameAr: string;
   nameEn: string;
@@ -76,6 +79,16 @@ export type AIContent = SectionHeaderContent & {
   chatGreeting: string;
 };
 
+export type ContactItemContent = {
+  id: string;
+  icon: ContactItemIconKey;
+  label: string;
+  value: string;
+  href: string;
+  enabled: boolean;
+  highlighted: boolean;
+};
+
 export type ContactContent = SectionHeaderContent & {
   emailLabel: string;
   phoneLabel: string;
@@ -83,6 +96,7 @@ export type ContactContent = SectionHeaderContent & {
   whatsappLabel: string;
   whatsappCta: string;
   whatsappMessage: string;
+  items: ContactItemContent[];
 };
 
 export type SiteContent = {
@@ -268,6 +282,12 @@ export const defaultSiteContent: SiteContent = {
     whatsappLabel: "واتساب",
     whatsappCta: "راسلني على واتساب",
     whatsappMessage: "مرحبًا أحمد، أريد الاستفسار عن بناء موقع أو تطبيق.",
+    items: [
+      { id: "email", icon: "mail", label: "البريد الإلكتروني", value: "ahmed0qaid@gmail.com", href: "mailto:ahmed0qaid@gmail.com", enabled: true, highlighted: false },
+      { id: "phone", icon: "phone", label: "الهاتف", value: "735013640", href: "tel:735013640", enabled: true, highlighted: false },
+      { id: "whatsapp", icon: "whatsapp", label: "واتساب", value: "راسلني على واتساب", href: "", enabled: true, highlighted: true },
+      { id: "location", icon: "location", label: "الموقع", value: "تعز - الحوبان", href: "", enabled: true, highlighted: false },
+    ],
   },
   footer: {
     text: "© 2026 أحمد شوقي منصور. موقع شخصي ذكي ونظام استقبال طلبات العملاء.",
@@ -471,6 +491,18 @@ export function normalizeSiteContent(value: unknown, fallback: SiteContent = def
       whatsappLabel: cleanString(source.contact.whatsappLabel, 60),
       whatsappCta: cleanString(source.contact.whatsappCta, 80),
       whatsappMessage: cleanString(source.contact.whatsappMessage, 240),
+      items: (source.contact.items?.length ? source.contact.items : fallback.contact.items)
+        .slice(0, 12)
+        .map((item, index) => ({
+          id: cleanString(item.id || `contact-${index + 1}`, 60) || `contact-${index + 1}`,
+          icon: contactItemIconKeys.includes(item.icon) ? item.icon : "link",
+          label: cleanString(item.label, 80),
+          value: cleanString(item.value, 180),
+          href: cleanString(item.href, 240),
+          enabled: Boolean(item.enabled),
+          highlighted: Boolean(item.highlighted),
+        }))
+        .filter((item) => item.label && item.value),
     },
     footer: {
       text: cleanString(source.footer.text, 200),

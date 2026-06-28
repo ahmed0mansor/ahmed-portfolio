@@ -157,6 +157,12 @@ export const englishSiteContent: SiteContent = {
     whatsappLabel: "WhatsApp",
     whatsappCta: "Chat on WhatsApp",
     whatsappMessage: "Hello Ahmed, I would like to ask about building a website or application.",
+    items: [
+      { id: "email", icon: "mail", label: "Email", value: "ahmed0qaid@gmail.com", href: "mailto:ahmed0qaid@gmail.com", enabled: true, highlighted: false },
+      { id: "phone", icon: "phone", label: "Phone", value: "735013640", href: "tel:735013640", enabled: true, highlighted: false },
+      { id: "whatsapp", icon: "whatsapp", label: "WhatsApp", value: "Chat on WhatsApp", href: "", enabled: true, highlighted: true },
+      { id: "location", icon: "location", label: "Location", value: "Taiz, Yemen", href: "", enabled: true, highlighted: false },
+    ],
   },
   footer: {
     text: "© 2026 AHMED SHAWQI MANSOUR. Built as a smart portfolio and AI client intake system.",
