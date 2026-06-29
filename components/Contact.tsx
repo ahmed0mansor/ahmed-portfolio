@@ -131,20 +131,14 @@ export function Contact({ content, contentEn, layoutVariant }: ContactProps) {
           titleEn={english.contact.title}
           subtitleEn={english.contact.subtitle}
         />
-        <div className="github-panel rounded-[2rem] p-6 w-fit md:w-full">
+        <div className="github-panel rounded-[2rem] p-6 w-fit max-w-full">
           <div
-            className={`grid gap-4 sm:grid-cols-2 ${
-              visibleItems.length === 1
-                ? "lg:grid-cols-1"
-                : visibleItems.length === 2
-                  ? "lg:grid-cols-2"
-                  : visibleItems.length === 3
-                    ? "lg:grid-cols-3"
-                    : "lg:grid-cols-4"
-            }`}
+            className="flex flex-wrap gap-4"
           >
             {visibleItems.map((item) => (
-              <ContactCard key={item.id} content={content} contentEn={contentEn} item={item} />
+              <div key={item.id} className="flex-1 min-w-[220px]">
+                <ContactCard content={content} contentEn={contentEn} item={item} />
+              </div>
             ))}
           </div>
         </div>
